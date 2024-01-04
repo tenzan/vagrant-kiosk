@@ -5,6 +5,7 @@ newMirror='https://ftp.udx.icscoe.jp/Linux/ubuntu/'
 sudo sed -i "s|deb [a-z]*://[^ ]* |deb ${newMirror} |g" /etc/apt/sources.list
 sudo apt-get update
 sudo apt install -y xorg openbox unclutter xdotool xdg-utils xvfb chromium-browser python3-xdg xinit menu fonts-takao fonts-ipafont fonts-ipaexfont
+sudo fc-cache -fv
 
 # Function to create a user with a password
 create_user() {
@@ -43,3 +44,10 @@ sudo chown kiosk:kiosk /home/kiosk/startx.sh
 AUTOLOGIN_CONF="/etc/systemd/system/getty@tty1.service.d/autologin.conf"
 sudo mkdir -p $(dirname "$AUTOLOGIN_CONF")
 sudo bash -c "echo -e '[Service]\nExecStart=\nExecStart=-/sbin/agetty --autologin kiosk --noclear %I \$TERM' > '$AUTOLOGIN_CONF'"
+
+# Remove unwanted directories for the 'kiosk' user
+for dir in Desktop Documents Downloads Music Pictures Public Templates Videos; do
+    sudo rm -rf /home/kiosk/"$dir"
+done
+
+sudo reboot
