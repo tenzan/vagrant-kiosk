@@ -11,7 +11,7 @@ sudo fc-cache -fv
 create_user() {
     local username=$1
     local password=$2
-e
+
     # Check if the user already exists
     if ! id "$username" &>/dev/null; then
         # Create the user with the specified password
