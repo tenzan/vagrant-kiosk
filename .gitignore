@@ -1,0 +1,42 @@
+# Vagrant & VirtualBox
+--------------------------------
+.vagrant/
+*.vbox-prev
+
+# If using VirtualBox, you might want to ignore the VirtualBox VMs directory
+# Depending on your VirtualBox setup, you might want to uncomment this
+# **/VirtualBox VMs/
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# If using other tools or IDEs with Vagrant, consider adding their specific files/folders:
+# For example, for Visual Studio Code
+.vscode/
+
+# For JetBrains IDEs like IntelliJ, PyCharm, etc.
+.idea/
+
+# For macOS users
+.DS_Store
+
+# Environment variables file
+.env
+
+# Other common files to ignore depending on your project's technology stack
+# (Node.js, Python, Ruby, etc.)
+
+# Node modules
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+
+# Ruby
+*.gem
+*.rbc
