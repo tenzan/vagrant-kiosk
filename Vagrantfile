@@ -4,6 +4,8 @@ Vagrant.configure("2") do |config|
   # Provisioning script for setting up the environment
   config.vm.provision "shell", path: "scripts/setup.sh"
 
+  config.vm.synced_folder "./scripts", "/vagrant/scripts"
+
   # Enable VirtualBox GUI
   config.vm.provider "virtualbox" do |vb|
     vb.cpus = 2

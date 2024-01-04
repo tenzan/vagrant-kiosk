@@ -1,10 +1,16 @@
 #!/bin/bash
 
+# Update sources.list with the closest mirror and install required packages
+newMirror='https://ftp.udx.icscoe.jp/Linux/ubuntu/'
+sudo sed -i "s|deb [a-z]*://[^ ]* |deb ${newMirror} |g" /etc/apt/sources.list
+sudo apt-get update
+sudo apt install -y xorg openbox unclutter xdotool xdg-utils xvfb chromium-browser python3-xdg xinit menu fonts-takao fonts-ipafont fonts-ipaexfont
+
 # Function to create a user with a password
 create_user() {
     local username=$1
     local password=$2
-
+e
     # Check if the user already exists
     if ! id "$username" &>/dev/null; then
         # Create the user with the specified password
@@ -23,6 +29,14 @@ create_user "ubuntu" "ubuntu"
 
 # Create user 'kiosk' with password 'kiosk'
 create_user "kiosk" "kiosk"
+
+echo -e "\nunclutter -display 0:0 -noevents -grab # this hides mouse" | sudo tee -a /home/kiosk/.profile
+echo -e "startx /etc/X11/Xsession /home/kiosk/startx.sh -- :0" | sudo tee -a /home/kiosk/.profile
+
+# Copy startx.sh to kiosk's home directory and make it executable
+sudo cp /vagrant/scripts/startx.sh /home/kiosk/startx.sh
+sudo chmod +x /home/kiosk/startx.sh
+sudo chown kiosk:kiosk /home/kiosk/startx.sh
 
 # Auto-login configuration for 'kiosk' user
 # Configure auto-login for the 'kiosk' user on TTY1
