@@ -23,3 +23,9 @@ create_user "ubuntu" "ubuntu"
 
 # Create user 'kiosk' with password 'kiosk'
 create_user "kiosk" "kiosk"
+
+# Auto-login configuration for 'kiosk' user
+# Configure auto-login for the 'kiosk' user on TTY1
+AUTOLOGIN_CONF="/etc/systemd/system/getty@tty1.service.d/autologin.conf"
+sudo mkdir -p $(dirname "$AUTOLOGIN_CONF")
+sudo bash -c "echo -e '[Service]\nExecStart=\nExecStart=-/sbin/agetty --autologin kiosk --noclear %I \$TERM' > '$AUTOLOGIN_CONF'"
